@@ -10,4 +10,6 @@ public interface CustomerService {
 	Customer findCustomerById(long id);
 
 	List<Customer> findByNameLike(String likename);
+
+	void delete(long id);
 }
