@@ -34,7 +34,7 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(double ordamount, double advanceamount, String orderdescription, Customer customer) {
+	public Order(double ordamount, double advanceamount, Customer customer, String orderdescription) {
 		this.ordamount = ordamount;
 		this.advanceamount = advanceamount;
 		this.orderdescription = orderdescription;
@@ -87,6 +87,12 @@ public class Order {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
+	}
+
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+		payment.getOrders()
+				.add(this);
 	}
 
 	@Override

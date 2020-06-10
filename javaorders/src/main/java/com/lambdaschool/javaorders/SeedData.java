@@ -1,14 +1,14 @@
-package com.lambdaschool.crudyorders;
+package com.lambdaschool.javaorders;
 
-import com.github.javafaker.Faker;
-import com.lambdaschool.crudyorders.models.Agent;
-import com.lambdaschool.crudyorders.models.Customer;
-import com.lambdaschool.crudyorders.models.Order;
-import com.lambdaschool.crudyorders.models.Payment;
-import com.lambdaschool.crudyorders.repositories.AgentsRepository;
-import com.lambdaschool.crudyorders.repositories.CustomersRepository;
-import com.lambdaschool.crudyorders.repositories.OrdersRepository;
-import com.lambdaschool.crudyorders.repositories.PaymentRepository;
+// import com.github.javafaker.Faker;
+import com.lambdaschool.javaorders.models.Agent;
+import com.lambdaschool.javaorders.models.Customer;
+import com.lambdaschool.javaorders.models.Order;
+import com.lambdaschool.javaorders.models.Payment;
+import com.lambdaschool.javaorders.repositories.AgentRepository;
+import com.lambdaschool.javaorders.repositories.CustomerRepository;
+import com.lambdaschool.javaorders.repositories.OrderRepository;
+import com.lambdaschool.javaorders.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -28,19 +28,19 @@ public class SeedData implements CommandLineRunner
      * Connects the customer table to this SeedData method
      */
     @Autowired
-    private CustomersRepository custrepos;
+    private CustomerRepository custrepos;
 
     /**
      * Connects the agents table to this SeedData method
      */
     @Autowired
-    private AgentsRepository agentrepos;
+    private AgentRepository agentrepos;
 
     /**
      * Connects the orders table to this SeedData method
      */
     @Autowired
-    private OrdersRepository ordersrepos;
+    private OrderRepository ordersrepos;
 
     /**
      * Connects the payment table to this SeedData method
@@ -412,74 +412,74 @@ public class SeedData implements CommandLineRunner
             600.00,
             c13,
             "SOD");
-        o01.addPayments(pay1);
+        o01.addPayment(pay1);
 
         Order o02 = new Order(3000.00,
             500.00,
             c19,
             "SOD");
-        o02.addPayments(pay2);
+        o02.addPayment(pay2);
 
         Order o03 = new Order(4500.00,
             900.00,
             c07,
             "SOD");
-        o03.addPayments(pay3);
-        o03.addPayments(pay2);
+        o03.addPayment(pay3);
+        o03.addPayment(pay2);
 
         Order o04 = new Order(2000.00,
             0.00,
             c16,
             "SOD");
-        o04.addPayments(pay4);
+        o04.addPayment(pay4);
 
         Order o05 = new Order(4000.00,
             600.00,
             c22,
             "SOD");
-        o05.addPayments(pay2);
+        o05.addPayment(pay2);
 
         Order o06 = new Order(2000.00,
             0.00,
             c12,
             "SOD");
-        o06.addPayments(pay3);
+        o06.addPayment(pay3);
 
         Order o07 = new Order(3500.00,
             2000.00,
             c02,
             "SOD");
-        o07.addPayments(pay4);
+        o07.addPayment(pay4);
 
         Order o08 = new Order(2500.00,
             400.00,
             c03,
             "SOD");
-        o08.addPayments(pay1);
+        o08.addPayment(pay1);
 
         Order o09 = new Order(500.00,
             0.00,
             c23,
             "SOD");
-        o09.addPayments(pay3);
+        o09.addPayment(pay3);
 
         Order o10 = new Order(4000.00,
             700.00,
             c07,
             "SOD");
-        o10.addPayments(pay4);
+        o10.addPayment(pay4);
 
         Order o11 = new Order(1500.00,
             600.00,
             c08,
             "SOD");
-        o11.addPayments(pay2);
+        o11.addPayment(pay2);
 
         Order o12 = new Order(2500.00,
             0.00,
             c25,
             "SOD");
-        o12.addPayments(pay1);
+        o12.addPayment(pay1);
 
         agentrepos.save(a01);
         agentrepos.save(a02);
