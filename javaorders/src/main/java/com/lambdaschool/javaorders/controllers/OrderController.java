@@ -5,10 +5,7 @@ import com.lambdaschool.javaorders.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -20,5 +17,11 @@ public class OrderController {
 	public ResponseEntity<?> findOrderById(@PathVariable long ordnum) {
 		Order order = orderService.findOrderById(ordnum);
 		return new ResponseEntity<>(order, HttpStatus.OK);
+	}
+
+	@DeleteMapping(value = "/order/{ordnum}")
+	public ResponseEntity<?> deleteOrderById(@PathVariable long ordnum) {
+		orderService.delete(ordnum);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
