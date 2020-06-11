@@ -2,6 +2,7 @@ package com.lambdaschool.javaorders.services;
 
 import com.lambdaschool.javaorders.models.Customer;
 import com.lambdaschool.javaorders.models.Order;
+import com.lambdaschool.javaorders.models.Payment;
 import com.lambdaschool.javaorders.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return custrepo.findByCustnameContainingIgnoringCase(likename);
 	}
 
-	// POST - PUT - PATCH
+	// POST - PUT
 	@Transactional
 	@Override
 	public Customer save(Customer customer) {
@@ -68,6 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
 		for (Order o : customer.getOrders()) {
 			Order newOrder = new Order(o.getOrdamount(), o.getAdvanceamount(), newCustomer, o.getOrderdescription());
 
+			newOrder.getPayments().clear();
+			for (Payment p : o.getPayments()) {
+				newOrder.addPayment(p);
+			}
+
 			newCustomer.getOrders()
 					.add(newOrder);
 		}
@@ -75,12 +81,64 @@ public class CustomerServiceImpl implements CustomerService {
 		return custrepo.save(newCustomer);
 	}
 
+	// PATCH
 	@Transactional
 	@Override
 	public Customer update(Customer customer, long id) {
-		return null;
+		Customer currentCustomer = custrepo.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Customer " + id + " Not Found"));
+
+		if (customer.getCustname() != null) {
+			currentCustomer.setCustname(customer.getCustname());
+		}
+		if (customer.getCustcity() != null) {
+			currentCustomer.setCustcity(customer.getCustcity());
+		}
+		if (customer.getWorkingarea() != null) {
+			currentCustomer.setWorkingarea(customer.getWorkingarea());
+		}
+		if (customer.getCustcountry() != null) {
+			currentCustomer.setCustcountry(customer.getCustcountry());
+		}
+		if (customer.getGrade() != null) {
+			currentCustomer.setGrade(customer.getGrade());
+		}
+		if (customer.hasvalueforopeningamt) {
+			currentCustomer.setOpeningamt(customer.getOpeningamt());
+		}
+		if (customer.hasvalueforreceiveamt) {
+			currentCustomer.setReceiveamt(customer.getReceiveamt());
+		}
+		if (customer.hasvalueforpaymentamt) {
+			currentCustomer.setPaymentamt(customer.getPaymentamt());
+		}
+		if (customer.hasvalueforoutstandingamt) {
+			currentCustomer.setOutstandingamt(customer.getOutstandingamt());
+		}
+		if (customer.getPhone() != null) {
+			currentCustomer.setPhone(customer.getPhone());
+		}
+		if (customer.getAgent() != null) {
+			currentCustomer.setAgent(customer.getAgent());
+		}
+		if (customer.getOrders().size() > 0) {
+			currentCustomer.getOrders().clear();
+			for (Order o : customer.getOrders()) {
+				Order newOrder = new Order(o.getOrdamount(), o.getAdvanceamount(), currentCustomer, o.getOrderdescription());
+
+				newOrder.getPayments().clear();
+				for (Payment p : o.getPayments()) {
+					newOrder.addPayment(p);
+				}
+
+				currentCustomer.getOrders()
+						.add(newOrder);
+			}
+		}
+		return custrepo.save(currentCustomer);
 	}
 
+	// DELETE
 	@Transactional
 	@Override
 	public void delete(long id) {
