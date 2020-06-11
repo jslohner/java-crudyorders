@@ -38,7 +38,11 @@ public class CustomerController {
 	}
 
 	@PostMapping(value = "/customer", consumes = {"application/json"})
-	public ResponseEntity<?> addNewCustomer(@Valid @RequestBody Customer newCustomer) {
+	public ResponseEntity<?> addNewCustomer(
+			@Valid
+			@RequestBody
+				Customer newCustomer
+	) {
 		newCustomer.setCustcode(0);
 		newCustomer = customerService.save(newCustomer);
 
@@ -50,6 +54,20 @@ public class CustomerController {
 		responseHeaders.setLocation(newCustomerURI);
 
 		return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+	}
+
+	@PutMapping(value = "/customer/{custId}", consumes = {"application/json"})
+	public ResponseEntity<?> updateFullCustomer(
+			@Valid
+			@RequestBody
+				Customer updateCustomer,
+			@PathVariable
+				long custId
+	) {
+		updateCustomer.setCustcode(custId);
+		customerService.save(updateCustomer);
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/customer/{custId}")
