@@ -25,9 +25,9 @@ public class CustomerController {
 		return new ResponseEntity<>(allCustomers, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/customer/{custId}", produces = {"application/json"})
-	public ResponseEntity<?> findCustomerById(@PathVariable long custId) {
-		Customer customer = customerService.findCustomerById(custId);
+	@GetMapping(value = "/customer/{custcode}", produces = {"application/json"})
+	public ResponseEntity<?> findCustomerById(@PathVariable long custcode) {
+		Customer customer = customerService.findCustomerById(custcode);
 		return new ResponseEntity<>(customer, HttpStatus.OK);
 	}
 
@@ -52,22 +52,22 @@ public class CustomerController {
 		return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/customer/{custId}", consumes = {"application/json"})
-	public ResponseEntity<?> updateFullCustomer(@Valid @RequestBody Customer updateCustomer, @PathVariable long custId) {
-		updateCustomer.setCustcode(custId);
+	@PutMapping(value = "/customer/{custcode}", consumes = {"application/json"})
+	public ResponseEntity<?> updateFullCustomer(@Valid @RequestBody Customer updateCustomer, @PathVariable long custcode) {
+		updateCustomer.setCustcode(custcode);
 		customerService.save(updateCustomer);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PatchMapping(value = "/customer/{custId}", consumes = {"application/json"})
-	public ResponseEntity<?> updateCustomer(@RequestBody Customer updateCustomer, @PathVariable long custId) {
-		customerService.update(updateCustomer, custId);
+	@PatchMapping(value = "/customer/{custcode}", consumes = {"application/json"})
+	public ResponseEntity<?> updateCustomer(@RequestBody Customer updateCustomer, @PathVariable long custcode) {
+		customerService.update(updateCustomer, custcode);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/customer/{custId}")
-	public ResponseEntity<?> deleteCustomerById(@PathVariable long custId) {
-		customerService.delete(custId);
+	@DeleteMapping(value = "/customer/{custcode}")
+	public ResponseEntity<?> deleteCustomerById(@PathVariable long custcode) {
+		customerService.delete(custcode);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
